@@ -15,3 +15,8 @@ async function gerar() {
   a.download = 'versiculos.pdf';
   a.click();
 }
+function selecionarTema(texto) {
+  const input = document.getElementById('tema');
+  input.value = texto;
+  input.focus();
+}
