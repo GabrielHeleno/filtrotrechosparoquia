@@ -1,12 +1,11 @@
+const API_URL = "https://filtrotrechosparoquia.onrender.com/gerar";
+
 async function gerar() {
   try {
     const tema = document.getElementById('tema').value;
-    if (!tema) {
-      alert("Digite um tema antes de gerar.");
-      return;
-    }
+    if (!tema) { alert("Digite um tema"); return; }
 
-    const res = await fetch('https://filtrotrechosparoquia.onrender.com/gerar', {
+    const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tema })
@@ -14,7 +13,7 @@ async function gerar() {
 
     if (!res.ok) {
       const text = await res.text();
-      throw new Error(`Erro no backend: ${res.status} ${text}`);
+      throw new Error(`Erro: ${res.status} ${text}`);
     }
 
     const blob = await res.blob();
@@ -29,8 +28,8 @@ async function gerar() {
     window.URL.revokeObjectURL(url);
 
   } catch (err) {
-    console.error(err);
     alert("Erro ao gerar arquivo: " + err.message);
+    console.error(err);
   }
 }
 
