@@ -179,3 +179,48 @@ button:active {
     font-size: 1.5rem;
   }
 }
+/* TEMAS CORINGA */
+.temas-coringa {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.temas-coringa span {
+  padding: 8px 14px;
+  font-size: 0.75rem;
+  border-radius: 999px;
+
+  background: rgba(15, 23, 42, 0.85);
+  color: #a5f3fc;
+
+  border: 1px solid rgba(56, 189, 248, 0.35);
+
+  cursor: pointer;
+  user-select: none;
+
+  box-shadow:
+    0 0 10px rgba(56, 189, 248, 0.15),
+    inset 0 0 6px rgba(56, 189, 248, 0.08);
+
+  transition: all 0.25s ease;
+}
+
+.temas-coringa span:hover {
+  color: #e0f2fe;
+  border-color: #38bdf8;
+
+  box-shadow:
+    0 0 18px rgba(56, 189, 248, 0.45),
+    inset 0 0 10px rgba(56, 189, 248, 0.15);
+
+  transform: translateY(-1px);
+}
+
+.temas-coringa span:active {
+  transform: translateY(0);
+  box-shadow:
+    0 0 10px rgba(56, 189, 248, 0.35);
+}
+
