@@ -22,9 +22,9 @@
       <h1>Versículos Bíblicos</h1>
       <p>Digite um tema para gerar versículos para oração e meditação.</p>
     </header>
-
     <section>
       <label for="tema" class="sr-only">Tema</label>
+    
       <input
         type="text"
         id="tema"
@@ -33,11 +33,22 @@
         autocomplete="off"
         required
       />
-
+    
+      <div class="temas-coringa">
+        <span onclick="selecionarTema('Confiança em Deus')">Confiança em Deus</span>
+        <span onclick="selecionarTema('Esperança nos momentos difíceis')">Esperança</span>
+        <span onclick="selecionarTema('Perdão e reconciliação')">Perdão</span>
+        <span onclick="selecionarTema('Paz interior')">Paz interior</span>
+        <span onclick="selecionarTema('Amor ao próximo')">Amor ao próximo</span>
+        <span onclick="selecionarTema('Fortalecer a fé')">Fé</span>
+      </div>
+    
       <button type="button" onclick="gerar()">
         Gerar PDF
       </button>
     </section>
+
+    
   </main>
 
   <!-- JS -->
