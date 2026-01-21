@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 from services.openai_service import gerar_versiculos
@@ -15,20 +15,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class Tema(BaseModel):
+class TemaRequest(BaseModel):
     tema: str
 
 @app.post("/gerar")
-def gerar(t: Tema):
-    try:
-        dados = gerar_versiculos(t.tema)
-        word_path = gerar_word_com_template(dados, "template.docx")
+async def gerar(request: TemaRequest):
+    tema = request.tema
 
-        return FileResponse(
-            word_path,
-            media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            filename="versiculos.docx"
-        )
+    if not tema:
+        raise HTTPException(status_code=400, detail="Tema não pode ser vazio")
+
+    try:
+        versiculos = gerar_versiculos(tema)
+        caminho_pdf = gerar_word_com_template(versiculos)
+        return FileResponse(caminho_pdf, media_type="application/pdf", filename="versiculos.pdf")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
