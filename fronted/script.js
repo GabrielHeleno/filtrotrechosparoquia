@@ -1,20 +1,39 @@
 async function gerar() {
-  const tema = document.getElementById('tema').value;
+  try {
+    const tema = document.getElementById('tema').value;
+    if (!tema) {
+      alert("Digite um tema antes de gerar.");
+      return;
+    }
 
-  const res = await fetch('https://filtro-trechos-biblia.onrender.com/gerar', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ tema })
-  });
+    const res = await fetch('https://filtrotrechosparoquia.onrender.com/gerar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tema })
+    });
 
-  const blob = await res.blob();
-  const url = window.URL.createObjectURL(blob);
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Erro no backend: ${res.status} ${text}`);
+    }
 
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'versiculos.pdf';
-  a.click();
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'versiculos.pdf';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+
+  } catch (err) {
+    console.error(err);
+    alert("Erro ao gerar arquivo: " + err.message);
+  }
 }
+
 function selecionarTema(texto) {
   const input = document.getElementById('tema');
   input.value = texto;
