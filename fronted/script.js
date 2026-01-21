@@ -1,7 +1,7 @@
 async function gerar() {
   const tema = document.getElementById('tema').value;
 
-  const res = await fetch('https://SUA_API/gerar', {
+  const res = await fetch('https://filtro-trechos-biblia.onrender.com/gerar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ tema })
