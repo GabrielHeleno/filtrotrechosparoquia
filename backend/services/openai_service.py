@@ -2,7 +2,7 @@ import os
 import json
 from openai import OpenAI
 
-client = OpenAI(api_key=os.getenv("44ecbd16c1cf8ad13e6f01a8272c849c"))
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 PROMPT = """
 Selecione exatamente 12 versículos da Bíblia relacionados ao tema: "{tema}"
