@@ -16,10 +16,10 @@ Retorne APENAS um JSON válido no formato:
 """
 
 def gerar_versiculos(tema: str):
-    # inicializa o cliente dentro da função
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         raise RuntimeError("OPENAI_API_KEY não está definida no ambiente")
+
     client = OpenAI(api_key=api_key)
 
     response = client.chat.completions.create(
