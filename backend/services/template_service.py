@@ -1,20 +1,39 @@
 from docx import Document
+from docx.shared import Inches
+from docx.enum.table import WD_ALIGN_VERTICAL
+from docx.shared import Pt
+from fpdf import FPDF
 import tempfile
 
-def gerar_word_com_template(dados, template_path):
-    doc = Document(template_path)
+def gerar_word_com_template(versiculos):
+    # cria documento Word
+    doc = Document()
+    table = doc.add_table(rows=3, cols=4)
+    table.style = 'Light List'
 
-    for i, item in enumerate(dados, start=1):
-        placeholder = f"{{{{V{i}}}}}"
-        texto = f'{item["texto"]}\n({item["endereco"]})'
+    idx = 0
+    for i in range(3):
+        for j in range(4):
+            if idx < len(versiculos):
+                cell = table.cell(i, j)
+                cell.text = f"{versiculos[idx]['texto']} ({versiculos[idx]['endereco']})"
+                cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+                for paragraph in cell.paragraphs:
+                    paragraph.alignment = 1  # center
+                    for run in paragraph.runs:
+                        run.font.size = Pt(10)
+                idx += 1
 
-        for table in doc.tables:
-            for row in table.rows:
-                for cell in row.cells:
-                    if placeholder in cell.text:
-                        cell.text = cell.text.replace(placeholder, texto)
+    tmp_word = tempfile.NamedTemporaryFile(delete=False, suffix=".docx")
+    doc.save(tmp_word.name)
 
-    output = tempfile.mktemp(suffix=".docx")
-    doc.save(output)
-    return output
+    # opcional: gerar PDF direto com fpdf
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    for v in versiculos:
+        pdf.multi_cell(0, 10, f"{v['texto']} ({v['endereco']})")
+    tmp_pdf = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    pdf.output(tmp_pdf.name)
 
+    return tmp_pdf.name
