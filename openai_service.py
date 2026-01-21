@@ -2,7 +2,7 @@ import os
 import json
 from openai import OpenAI
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=os.getenv("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"))
 
 PROMPT_TEMPLATE = """
 Você deve:
