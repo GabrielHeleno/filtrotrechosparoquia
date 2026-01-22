@@ -1,39 +1,48 @@
 from docx import Document
-from docx.shared import Inches
-from docx.enum.table import WD_ALIGN_VERTICAL
-from docx.shared import Pt
 from fpdf import FPDF
 import tempfile
 
-def gerar_word_com_template(versiculos):
-    # cria documento Word
+def gerar_word_com_template(versiculos, output_pdf_path):
+    """
+    Recebe a lista de versículos e gera:
+    1. Word com tabela 3x4 usando os versículos
+    2. PDF final
+    Retorna o caminho do PDF.
+    """
+
+    # 1️⃣ Cria documento Word temporário
     doc = Document()
-    table = doc.add_table(rows=3, cols=4)
-    table.style = 'Light List'
+    doc.add_heading("Versículos Selecionados", level=1)
 
-    idx = 0
-    for i in range(3):
-        for j in range(4):
-            if idx < len(versiculos):
-                cell = table.cell(i, j)
-                cell.text = f"{versiculos[idx]['texto']} ({versiculos[idx]['endereco']})"
-                cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
-                for paragraph in cell.paragraphs:
-                    paragraph.alignment = 1  # center
-                    for run in paragraph.runs:
-                        run.font.size = Pt(10)
-                idx += 1
+    # Tabela 3x4
+    tabela = doc.add_table(rows=3, cols=4)
+    tabela.style = 'Table Grid'
 
+    i = 0
+    for row in tabela.rows:
+        for cell in row.cells:
+            if i < len(versiculos):
+                v = versiculos[i]
+                cell.text = f"{v['texto']}\n({v['endereco']})"
+                i += 1
+            else:
+                cell.text = ""
+
+    # Salva Word temporário
     tmp_word = tempfile.NamedTemporaryFile(delete=False, suffix=".docx")
     doc.save(tmp_word.name)
 
-    # opcional: gerar PDF direto com fpdf
+    # 2️⃣ Converte Word para PDF simples com FPDF
+    # OBS: FPDF não lê docx, então vamos simplificar: PDF com texto dos versículos
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
-    for v in versiculos:
-        pdf.multi_cell(0, 10, f"{v['texto']} ({v['endereco']})")
-    tmp_pdf = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
-    pdf.output(tmp_pdf.name)
+    pdf.cell(0, 10, "Versículos Selecionados", ln=True, align="C")
+    pdf.ln(5)
 
-    return tmp_pdf.name
+    for v in versiculos:
+        pdf.multi_cell(0, 8, f"{v['texto']} ({v['endereco']})")
+        pdf.ln(1)
+
+    pdf.output(output_pdf_path)
+    return output_pdf_path
