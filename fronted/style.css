@@ -145,7 +145,39 @@ button:active {
   box-shadow:
     0 6px 18px rgba(0, 89, 58, 0.35);
 }
+footer {
+  width: 100%;
+  text-align: center;
+  margin-top: 32px;
+  font-size: 0.85rem;
+  color: #7aa694;
+}
 
+footer span {
+  display: inline-block;
+  background: linear-gradient(90deg, #00593a, #00b080, #008060);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200%;
+
+  animation: fadeInGradient 3s ease-in-out infinite alternate;
+}
+
+/* ANIMAÇÃO FADE IN GRADIENTE */
+@keyframes fadeInGradient {
+  0% {
+    background-position: 0%;
+    opacity: 0.6;
+  }
+  50% {
+    background-position: 100%;
+    opacity: 1;
+  }
+  100% {
+    background-position: 0%;
+    opacity: 0.6;
+  }
+}
 /* ANIMAÇÕES */
 @keyframes fadeIn {
   from {
