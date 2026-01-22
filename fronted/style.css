@@ -9,32 +9,19 @@
 /* FUNDO GERAL */
 body {
   min-height: 100vh;
+  background: radial-gradient(
+    circle at top,
+    #0f172a,
+    #020617 70%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
   color: #e5e7eb;
-  background: radial-gradient(circle at top, #0f172a, #020617 70%);
-  position: relative;
-  overflow: hidden;
-}
-
-/* SOBREPOSIÇÃO DE ESTRELAS */
-body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
-  opacity: 0.08;
-  z-index: 0;
 }
 
 /* CONTAINER CENTRAL */
 .container {
-  position: relative;
-  z-index: 1;
   width: 100%;
   max-width: 520px;
   padding: 36px;
@@ -143,46 +130,6 @@ button {
 
   transition: all 0.35s ease;
 }
-/* SPANS DE SUGESTÕES */
-span {
-  display: inline-block;
-  margin: 4px 6px;
-  padding: 8px 14px;
-  border-radius: 16px;
-  border-color: #020617;
-  color: #020617;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.35s ease;
-  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
-}
-
-span:hover {
-  background-position: right;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
-}
-
-/* RODAPÉ */
-footer {
-  margin-top: 32px;
-  text-align: center;
-  font-size: 0.85rem;
-  color: #94a3b8;
-  font-weight: 400;
-  position: relative;
-  z-index: 1;
-  padding: 14px 0;
-  letter-spacing: 0.5px;
-}
-
-footer span {
-  background: linear-gradient(135deg, #38bdf8, #22d3ee, #38bdf8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 600;
-}
 
 button:hover {
   background-position: right;
@@ -231,4 +178,48 @@ button:active {
   h1 {
     font-size: 1.5rem;
   }
+}
+/* TEMAS CORINGA */
+.temas-coringa {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.temas-coringa span {
+  padding: 8px 14px;
+  font-size: 0.75rem;
+  border-radius: 999px;
+
+  background: rgba(15, 23, 42, 0.85);
+  color: #a5f3fc;
+
+  border: 1px solid rgba(56, 189, 248, 0.35);
+
+  cursor: pointer;
+  user-select: none;
+
+  box-shadow:
+    0 0 10px rgba(56, 189, 248, 0.15),
+    inset 0 0 6px rgba(56, 189, 248, 0.08);
+
+  transition: all 0.25s ease;
+}
+
+.temas-coringa span:hover {
+  color: #e0f2fe;
+  border-color: #38bdf8;
+
+  box-shadow:
+    0 0 18px rgba(56, 189, 248, 0.45),
+    inset 0 0 10px rgba(56, 189, 248, 0.15);
+
+  transform: translateY(-1px);
+}
+
+.temas-coringa span:active {
+  transform: translateY(0);
+  box-shadow:
+    0 0 10px rgba(56, 189, 248, 0.35);
 }
