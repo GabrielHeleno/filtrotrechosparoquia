@@ -2,16 +2,15 @@ import os
 import json
 from openai import OpenAI
 
-# Busca a chave da variável de ambiente
-OPENAI_KEY = os.getenv("OPENAI_API_KEY")
-if not OPENAI_KEY:
+# Checa se a chave está definida
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
     raise RuntimeError(
-        "A variável de ambiente OPENAI_API_KEY não está definida. "
-        "Configure-a no Render ou no seu ambiente local."
+        "A variável de ambiente OPENAI_API_KEY não está definida. Configure-a no Render ou no seu ambiente local."
     )
 
 # Inicializa cliente OpenAI
-client = OpenAI(api_key=OPENAI_KEY)
+client = OpenAI(api_key=api_key)
 
 PROMPT = """
 Selecione exatamente 12 versículos da Bíblia relacionados ao tema: "{tema}"
