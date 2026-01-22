@@ -2,7 +2,7 @@ const API_URL = "https://filtrotrechosparoquia.onrender.com/gerar";
 
 async function gerar() {
   try {
-    const tema = document.getElementById('tema').value;
+    const tema = document.getElementById('tema').value.trim();
     if (!tema) { alert("Digite um tema"); return; }
 
     const res = await fetch(API_URL, {
@@ -17,8 +17,9 @@ async function gerar() {
     }
 
     const blob = await res.blob();
-    const url = window.URL.createObjectURL(blob);
+    if (blob.size === 0) throw new Error("Arquivo vazio");
 
+    const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = 'versiculos.pdf';
