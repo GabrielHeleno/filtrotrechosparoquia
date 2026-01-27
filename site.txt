@@ -1,1 +1,4 @@
 enter https://gabrielheleno.github.io/filtrotrechosparoquia/fronted/
+acesso ao render: https://dashboard.render.com/web/srv-d5olo2l6ubrc73dn0dng/deploys/dep-d5sbcf95pdvs739ilcl0
+acesso ao render home: https://filtrotrechosparoquia.onrender.com/
+acesso ao gpt api: https://platform.openai.com/settings/organization/usage
